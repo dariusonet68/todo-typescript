@@ -1,34 +1,30 @@
-import { useState } from 'react';
-import { ListItem } from './ListItem';
+import { ListItem } from "./ListItem";
 
 export interface ListItemData {
-    text: string;
+  text: string;
+  id: string;
 }
 
 interface Props {
-    data: ListItemData[]
+  data: ListItemData[];
+  onDiscard: (id: string) => void;
 }
 
-export function List ({data}:Props) {
-    const [_data,setData]=useState<ListItemData[]>(data)
-    function handleOnComplete() {
+export function List({ data, onDiscard }: Props) {
+  function handleOnComplete() {}
 
-    }
-
-    function handleOnDiscard() {
-        
-        setData([])
-    }
-    return (
-        <div>
-            {
-                _data.map((listItem)=>{
-
-                    return <ListItem onCompleted={handleOnComplete} onDiscard={handleOnDiscard} text={listItem.text} />
-                })
-            }
-            
-        </div>
-
-    )
+  return (
+    <div>
+      {data.map((listItem) => {
+        return (
+          <ListItem
+            onCompleted={handleOnComplete}
+            onDiscard={onDiscard}
+            text={listItem.text}
+            id={listItem.id}
+          />
+        );
+      })}
+    </div>
+  );
 }
